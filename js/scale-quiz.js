@@ -7,19 +7,23 @@ export async function initScaleQuiz(container) {
 container.innerHTML = `
   <section class="scale-quiz">
     <h2>Trouver les notes d’une gamme</h2>
+    <div class="title-accent"></div>
 
     <div class="scale-question" id="scale-question">
-      Aucune gamme générée pour le moment.
+      <span class="treble-clef">𝄞</span>
+      <span id="scale-question-text">Aucune gamme générée</span>
     </div>
 
     <div class="notes-inputs" id="notes-inputs"></div>
 
     <div class="scale-actions">
       <button class="primary-button" id="generate-scale-button">
+        <span class="button-icon">🎲</span>
         Générer
       </button>
 
       <button class="secondary-button" id="check-scale-button" disabled>
+        <span class="button-icon">✓</span>
         Vérifier
       </button>
     </div>
@@ -58,7 +62,7 @@ function generateRandomScale() {
   const randomIndex = Math.floor(Math.random() * scales.length);
   currentScale = scales[randomIndex];
 
-  const question = document.querySelector("#scale-question");
+  const question = document.querySelector("#scale-question-text");
   const inputsContainer = document.querySelector("#notes-inputs");
   const checkButton = document.querySelector("#check-scale-button");
 

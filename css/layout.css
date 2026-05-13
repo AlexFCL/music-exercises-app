@@ -4,21 +4,35 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: system-ui, Arial, sans-serif;
-  background: var(--color-background);
   color: var(--color-text);
+  background:
+    radial-gradient(circle at top left, rgba(139, 92, 246, 0.22), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 28rem),
+    var(--color-background);
 }
 
 .app-header {
-  padding: var(--space-lg);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
   text-align: center;
 }
 
+.app-header h1 {
+  margin: 0;
+  font-family: "SephoraHayden", sans-serif;
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  font-weight: normal;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
 .app-header p {
+  margin-top: var(--space-sm);
   color: var(--color-muted);
 }
 
 .app-main {
-  width: min(100% - 2rem, 900px);
-  margin: 0 auto;
+  width: min(100% - 2rem, 980px);
+  margin: 0 auto var(--space-xl);
 }
