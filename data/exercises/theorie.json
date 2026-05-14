@@ -1,7 +1,14 @@
 [
   {
-    "id": "scale-quiz",
-    "title": "Trouver les notes d’une gamme",
+    "id": "scale-from-tonic",
+    "title": "A partir de la fondamentale",
+    "description": "Trouver les notes d'une gamme depuis sa fondamentale.",
     "type": "scale-quiz"
+  },
+  {
+    "id": "scale-from-any-note",
+    "title": "A partir de n'importe quelle note",
+    "description": "Construire la gamme depuis une note choisie.",
+    "type": "scale-from-any-note"
   }
 ]

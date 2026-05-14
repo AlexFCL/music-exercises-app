@@ -27,6 +27,37 @@ export function renderCategories(categories, onCategoryClick) {
   });
 }
 
+export function renderExerciseMenu(exercises, onBackClick, onExerciseClick) {
+  document.body.classList.remove("exercise-view");
+
+  const html = `
+    <button class="back-button">← Retour</button>
+
+    <div class="tiles-grid">
+      ${exercises.map(exercise => `
+        <button class="tile" data-exercise-id="${exercise.id}">
+          <h2>${exercise.title}</h2>
+          <p>${exercise.description}</p>
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  const content = document.querySelector("#content");
+  content.innerHTML = html;
+
+  document.querySelector(".back-button").addEventListener("click", onBackClick);
+
+  const tiles = document.querySelectorAll(".tile");
+
+  tiles.forEach(tile => {
+    tile.addEventListener("click", () => {
+      const exercise = exercises.find(item => item.id === tile.dataset.exerciseId);
+      onExerciseClick(exercise);
+    });
+  });
+}
+
 export function renderExercises(exercises, onBackClick) {
   document.body.classList.add("exercise-view");
 
@@ -37,12 +68,12 @@ export function renderExercises(exercises, onBackClick) {
       ${exercises.map(exercise => `
         <article class="exercise-card">
           ${
-            exercise.type === "scale-quiz"
+            isScaleQuizExercise(exercise)
               ? `<div id="scale-quiz-container"></div>`
               : `
                 <h2>${exercise.title}</h2>
                 <p>${exercise.description}</p>
-                <strong>Durée : ${exercise.duration}</strong>
+                ${exercise.duration ? `<strong>Durée : ${exercise.duration}</strong>` : ""}
               `
           }
         </article>
@@ -58,6 +89,11 @@ export function renderExercises(exercises, onBackClick) {
   const scaleQuizContainer = document.querySelector("#scale-quiz-container");
 
   if (scaleQuizContainer) {
-    initScaleQuiz(scaleQuizContainer);
+    const scaleQuizExercise = exercises.find(isScaleQuizExercise);
+    initScaleQuiz(scaleQuizContainer, { mode: scaleQuizExercise.type });
   }
+}
+
+function isScaleQuizExercise(exercise) {
+  return exercise.type === "scale-quiz" || exercise.type === "scale-from-any-note";
 }

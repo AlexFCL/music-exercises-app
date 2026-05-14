@@ -1,7 +1,10 @@
 let scales = [];
 let currentScale = null;
+let currentAnswerNotes = [];
+let currentQuizMode = "scale-quiz";
 
-export async function initScaleQuiz(container) {
+export async function initScaleQuiz(container, options = {}) {
+  currentQuizMode = options.mode ?? "scale-quiz";
   scales = await loadScales();
 
 container.innerHTML = `
@@ -61,15 +64,16 @@ async function loadScales() {
 function generateRandomScale() {
   const randomIndex = Math.floor(Math.random() * scales.length);
   currentScale = scales[randomIndex];
+  currentAnswerNotes = getAnswerNotes(currentScale);
 
   const question = document.querySelector("#scale-question-text");
   const inputsContainer = document.querySelector("#notes-inputs");
   const checkButton = document.querySelector("#check-scale-button");
 
   inputsContainer.closest(".scale-quiz").classList.add("has-scale");
-  question.textContent = `${currentScale.tonic} ${currentScale.scaleType}`;
+  question.textContent = getQuestionText(currentScale, currentAnswerNotes);
 
-  inputsContainer.innerHTML = currentScale.notes.map((note, index) => `
+  inputsContainer.innerHTML = currentAnswerNotes.map((note, index) => `
     <div class="note-field">
       <input
         class="note-input"
@@ -91,6 +95,10 @@ function generateRandomScale() {
 
       const correction = input.parentElement.querySelector(".note-correction");
       correction.textContent = "";
+
+      if (input.value.length === input.maxLength) {
+        focusNextInput(input, inputs);
+      }
     });
 
     input.addEventListener("keydown", (event) => {
@@ -124,6 +132,30 @@ function sanitizeNoteInput(value) {
   return normalizeNote(value).replace(/[^A-G#b]/g, "");
 }
 
+function getAnswerNotes(scale) {
+  if (currentQuizMode !== "scale-from-any-note") {
+    return scale.notes;
+  }
+
+  const startIndex = Math.floor(Math.random() * scale.notes.length);
+  return rotateNotes(scale.notes, startIndex);
+}
+
+function getQuestionText(scale, answerNotes) {
+  if (currentQuizMode !== "scale-from-any-note") {
+    return `${scale.tonic} ${scale.scaleType}`;
+  }
+
+  return `${scale.tonic} ${scale.scaleType}, à partir de ${answerNotes[0]}`;
+}
+
+function rotateNotes(notes, startIndex) {
+  return [
+    ...notes.slice(startIndex),
+    ...notes.slice(0, startIndex)
+  ];
+}
+
 function checkAnswers() {
   if (!currentScale) {
     return;
@@ -134,8 +166,8 @@ function checkAnswers() {
   inputs.forEach(input => {
     const index = Number(input.dataset.index);
 
-    const userAnswer = normalizeNote(input.value);
-    const correctAnswer = currentScale.notes[index];
+    const userAnswer = sanitizeNoteInput(input.value);
+    const correctAnswer = currentAnswerNotes[index];
 
     const correction = input.parentElement.querySelector(".note-correction");
 
