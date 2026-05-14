@@ -86,11 +86,20 @@ function generateRandomScale() {
 
   inputs.forEach(input => {
     input.addEventListener("input", () => {
-      input.value = normalizeNote(input.value);
+      input.value = sanitizeNoteInput(input.value);
       input.classList.remove("is-correct", "is-wrong");
 
       const correction = input.parentElement.querySelector(".note-correction");
       correction.textContent = "";
+    });
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key !== " ") {
+        return;
+      }
+
+      event.preventDefault();
+      focusNextInput(input, inputs);
     });
   });
 
@@ -99,6 +108,20 @@ function generateRandomScale() {
   if (inputs.length > 0) {
     inputs[0].focus({ preventScroll: true });
   }
+}
+
+function focusNextInput(currentInput, inputs) {
+  const currentIndex = Number(currentInput.dataset.index);
+  const nextInput = inputs[currentIndex + 1];
+
+  if (nextInput) {
+    nextInput.focus({ preventScroll: true });
+    nextInput.select();
+  }
+}
+
+function sanitizeNoteInput(value) {
+  return normalizeNote(value).replace(/[^A-G#b]/g, "");
 }
 
 function checkAnswers() {
