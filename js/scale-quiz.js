@@ -66,6 +66,7 @@ function generateRandomScale() {
   const inputsContainer = document.querySelector("#notes-inputs");
   const checkButton = document.querySelector("#check-scale-button");
 
+  inputsContainer.closest(".scale-quiz").classList.add("has-scale");
   question.textContent = `${currentScale.tonic} ${currentScale.scaleType}`;
 
   inputsContainer.innerHTML = currentScale.notes.map((note, index) => `
@@ -96,7 +97,7 @@ function generateRandomScale() {
   checkButton.disabled = false;
 
   if (inputs.length > 0) {
-    inputs[0].focus();
+    inputs[0].focus({ preventScroll: true });
   }
 }
 

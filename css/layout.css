@@ -5,6 +5,7 @@
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: system-ui, Arial, sans-serif;
   color: var(--color-text);
   background:
@@ -35,4 +36,20 @@ body {
 .app-main {
   width: min(100% - 2rem, 980px);
   margin: 0 auto var(--space-xl);
+}
+
+.exercise-view .app-header {
+  padding: clamp(0.9rem, 4vh, var(--space-xl)) var(--space-lg) clamp(0.45rem, 1.8vh, var(--space-lg));
+}
+
+.exercise-view .app-header h1 {
+  font-size: clamp(2.6rem, min(7vw, 10vh), 5.2rem);
+}
+
+.exercise-view .app-header p {
+  margin-top: clamp(0.25rem, 1vh, var(--space-sm));
+}
+
+.exercise-view .app-main {
+  margin-bottom: clamp(0.35rem, 2vh, var(--space-xl));
 }

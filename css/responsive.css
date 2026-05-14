@@ -49,15 +49,31 @@
     gap: 0.8rem;
   }
 
+  .exercise-view .scale-quiz.has-scale .notes-inputs {
+    gap: clamp(0.25rem, 1.4vw, 0.55rem);
+  }
+
   .note-input {
     width: 3.9rem;
     height: 3.8rem;
     font-size: 1.1rem;
   }
 
+  .exercise-view .scale-quiz.has-scale .note-input {
+    width: clamp(2.25rem, 9vw, 3.35rem);
+    height: clamp(2.35rem, 8.5vw, 3.15rem);
+    font-size: clamp(0.8rem, 3.2vw, 1rem);
+  }
+
   .note-correction {
     min-width: 3.9rem;
     font-size: 1rem;
+  }
+
+  .exercise-view .scale-quiz.has-scale .note-correction {
+    min-width: clamp(2.25rem, 9vw, 3.35rem);
+    height: clamp(0.9rem, 3vw, 1.1rem);
+    font-size: clamp(0.7rem, 2.7vw, 0.9rem);
   }
 
   .scale-actions {

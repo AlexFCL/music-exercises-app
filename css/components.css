@@ -44,6 +44,10 @@
   padding: 3.2rem 2rem 4rem;
 }
 
+.exercise-view .exercise-card {
+  padding: clamp(1.5rem, 5.3vh, 3.2rem) clamp(1.3rem, 3vw, 2rem) clamp(2.1rem, 6vh, 4rem);
+}
+
 .exercise-card::before,
 .exercise-card::after {
   content: "";
@@ -85,6 +89,11 @@
   transform: translateX(-2px);
 }
 
+.exercise-view .back-button {
+  min-height: clamp(2.55rem, 7vh, 3.6rem);
+  margin-bottom: clamp(0.65rem, 2.2vh, var(--space-lg));
+}
+
 .scale-quiz {
   position: relative;
   z-index: 1;
@@ -98,6 +107,10 @@
   letter-spacing: -0.02em;
 }
 
+.exercise-view .scale-quiz h2 {
+  font-size: clamp(1.35rem, min(2.7vw, 4.5vh), 2rem);
+}
+
 .title-accent {
   width: 78px;
   height: 4px;
@@ -105,6 +118,18 @@
   border-radius: 999px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
   box-shadow: 0 0 18px rgba(139, 92, 246, 0.6);
+}
+
+.exercise-view .title-accent {
+  margin: clamp(0.7rem, 1.7vh, 1.25rem) auto clamp(0.85rem, 2.3vh, 1.6rem);
+}
+
+.scale-quiz.has-scale .title-accent {
+  margin: 1rem auto 0.95rem;
+}
+
+.exercise-view .scale-quiz.has-scale .title-accent {
+  margin: clamp(0.55rem, 1.45vh, 1rem) auto clamp(0.7rem, 1.75vh, 0.95rem);
 }
 
 .scale-question {
@@ -123,6 +148,20 @@
   box-shadow: 0 0 35px rgba(139, 92, 246, 0.15);
 }
 
+.exercise-view .scale-question {
+  min-height: clamp(5.5rem, 16vh, 8rem);
+  margin-bottom: clamp(1.5rem, 4.2vh, 2.6rem);
+  padding: clamp(1rem, 2.7vh, 1.4rem) 2rem;
+}
+
+.scale-quiz.has-scale .scale-question {
+  margin-bottom: 1rem;
+}
+
+.exercise-view .scale-quiz.has-scale .scale-question {
+  margin-bottom: clamp(0.7rem, 1.9vh, 1rem);
+}
+
 .treble-clef {
   color: var(--color-primary-light);
   font-size: 4.2rem;
@@ -130,11 +169,19 @@
   text-shadow: 0 0 22px rgba(139, 92, 246, 0.55);
 }
 
+.exercise-view .treble-clef {
+  font-size: clamp(3rem, 8.5vh, 4.2rem);
+}
+
 #scale-question-text {
   color: var(--color-primary-light);
   font-size: clamp(1.7rem, 3vw, 2rem);
   font-weight: 650;
   letter-spacing: -0.02em;
+}
+
+.exercise-view #scale-question-text {
+  font-size: clamp(1.45rem, min(3vw, 4vh), 2rem);
 }
 
 .notes-inputs {
@@ -145,11 +192,31 @@
   margin: 0 auto 3rem;
 }
 
+.scale-quiz.has-scale .notes-inputs {
+  position: relative;
+  z-index: 1;
+  flex-wrap: nowrap;
+  gap: 0.85rem;
+  height: 0;
+  margin-bottom: 5.5rem;
+  overflow: visible;
+}
+
+.exercise-view .scale-quiz.has-scale .notes-inputs {
+  gap: clamp(0.55rem, 1.6vh, 0.85rem);
+  margin-bottom: clamp(4.8rem, 11vh, 5.5rem);
+}
+
 .note-field {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.45rem;
+}
+
+.scale-quiz.has-scale .note-field {
+  align-self: flex-start;
+  gap: 0.25rem;
 }
 
 .note-input {
@@ -166,6 +233,21 @@
   text-align: center;
   outline: none;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.scale-quiz.has-scale .note-input {
+  flex: 0 0 auto;
+  width: 4.35rem;
+  height: 3.85rem;
+  padding: 0.45rem;
+  border-radius: 14px;
+  font-size: 1.25rem;
+}
+
+.exercise-view .scale-quiz.has-scale .note-input {
+  width: clamp(3.55rem, 8.8vh, 4.35rem);
+  height: clamp(3.1rem, 7.8vh, 3.85rem);
+  font-size: clamp(1rem, 2.7vh, 1.25rem);
 }
 
 .note-input:focus {
@@ -194,6 +276,25 @@
   text-align: center;
 }
 
+.scale-quiz.has-scale .note-correction {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.35rem;
+  min-height: 0;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.exercise-view .scale-quiz.has-scale .note-correction {
+  min-width: clamp(3.55rem, 8.8vh, 4.35rem);
+  height: clamp(1rem, 2.5vh, 1.25rem);
+  font-size: clamp(0.85rem, 2.15vh, 1rem);
+}
+
 .note-correction:not(:empty) {
   background: var(--color-error-bg);
   border: 1px solid rgba(239, 68, 68, 0.4);
@@ -205,6 +306,10 @@
   align-items: center;
   gap: 1.8rem;
   margin-top: 0;
+}
+
+.exercise-view .scale-actions {
+  gap: clamp(1rem, 3vh, 1.8rem);
 }
 
 .primary-button,
@@ -222,6 +327,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.exercise-view .primary-button,
+.exercise-view .secondary-button {
+  min-width: clamp(145px, 16vw, 165px);
+  min-height: clamp(3.1rem, 7.3vh, 4.25rem);
+  padding: clamp(0.55rem, 1.6vh, 0.8rem) 1.2rem;
+  font-size: clamp(1rem, 2.5vh, 1.2rem);
 }
 
 .primary-button {

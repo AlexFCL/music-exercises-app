@@ -1,6 +1,8 @@
 import { initScaleQuiz } from "./scale-quiz.js";
 
 export function renderCategories(categories, onCategoryClick) {
+  document.body.classList.remove("exercise-view");
+
   const html = `
     <div class="tiles-grid">
       ${categories.map(category => `
@@ -26,6 +28,8 @@ export function renderCategories(categories, onCategoryClick) {
 }
 
 export function renderExercises(exercises, onBackClick) {
+  document.body.classList.add("exercise-view");
+
   const html = `
     <button class="back-button">← Retour</button>
 
